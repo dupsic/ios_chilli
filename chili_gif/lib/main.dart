@@ -106,7 +106,6 @@ class MyApp extends StatelessWidget{
 class FullScreenGif extends StatelessWidget {
   final String url;
 
-  // Конструктор принимает URL гифки
   const FullScreenGif({super.key, required this.url});
 
   @override
@@ -115,13 +114,14 @@ class FullScreenGif extends StatelessWidget {
       appBar: AppBar(
         title: Text("SuperChili App"),
         centerTitle: true,),
-      // backgroundColor: Colors.black, // Черный фон для красоты
+      // backgroundColor: Colors.black,
       body: Center(
         child: Image.network(
           url,
           fit: BoxFit.contain,
         ),
       ),
+      Text()
     );
   }
 }
