@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget{
     final TextEditingController searchController = TextEditingController();
     List<String> gifUrls = [];
     
+
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.blueGrey),
       home: Scaffold(
@@ -27,14 +28,21 @@ class MyApp extends StatelessWidget{
               final String apiKey = 'odgNV68FOM3rCSdrkL80RAqYVTexRdkp';
               final url = Uri.parse(
                   'https://api.giphy.com/v1/gifs/search?api_key=$apiKey&q=$query&limit=20');
-
               final response = await http.get(url);
 
               if (response.statusCode == 200) {
                 final data = jsonDecode(response.body);
                 // updates UI
+                // print(data);
+                
                 setInternalState(() {
+
+                  String gifTitle = (data['data']['title']);
+                  String gifUsername = (data['data']['username']);
+                  print(gifUsername);
+                  print(gifTitle);
                   gifUrls = (data['data'] as List)
+                  
                       .map((gif) => gif['images']['fixed_height']['url'].toString())
                       .toList();
                 });
@@ -71,15 +79,47 @@ class MyApp extends StatelessWidget{
                         mainAxisSpacing: 10,
                       ),
                       itemCount: gifUrls.length,
-                      itemBuilder: (context, index) => Image.network(
+                      itemBuilder: (context, index) => GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (
+                                context) => FullScreenGif(url: gifUrls[index]),));
+                        },
+                        child: Image.network(
                         gifUrls[index],
                         fit: BoxFit.cover,
+                        )
                       ),
                     ),
                   )
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class FullScreenGif extends StatelessWidget {
+  final String url;
+
+  // Конструктор принимает URL гифки
+  const FullScreenGif({super.key, required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("SuperChili App"),
+        centerTitle: true,),
+      // backgroundColor: Colors.black, // Черный фон для красоты
+      body: Center(
+        child: Image.network(
+          url,
+          fit: BoxFit.contain,
         ),
       ),
     );
