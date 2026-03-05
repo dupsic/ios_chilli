@@ -39,10 +39,10 @@ class MyApp extends StatelessWidget{
                 
                 setInternalState(() {
 
-                  String gifTitle = (data['data']['title']);
-                  String gifUsername = (data['data']['username']);
-                  print(gifUsername);
-                  print(gifTitle);
+                  // String gifTitle = (data['data']['title']);
+                  // String gifUsername = (data['data']['username']);
+                  // print(gifUsername);
+                  // print(gifTitle);
                   gifUrls = (data['data'] as List)
                   
                       .map((gif) => gif['images']['fixed_height']['url'].toString())
@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget{
                   padding: const EdgeInsets.all(20.0),
                   child: TextField(
                     controller: searchController,
+                    
                     decoration: InputDecoration(
                       hintText: "Search gif...",
                       suffixIcon: IconButton(
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget{
                       border: const OutlineInputBorder(),
                     ),
                     onSubmitted: (value) => searchGifs(value),
+                    onChanged: (value) => searchGifs(value),
                   ),
                 ),
                 // grid
