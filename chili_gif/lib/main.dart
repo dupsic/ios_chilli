@@ -6,6 +6,7 @@ void main() => runApp(const MyApp());
 
 Future<List<Map<String, dynamic>>> searchGifs(String query) async {
   const String apiKey = 'odgNV68FOM3rCSdrkL80RAqYVTexRdkp';
+  // couldve done using .env but too late
   try {
     final url = Uri.parse('https://api.giphy.com/v1/gifs/search?api_key=$apiKey&q=$query&limit=21');
     
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
                 if (gifData.isEmpty)
                   const Expanded(child: Center(child: Text("Search for some GIFs!")))
                 else
+                  // grid
                   Expanded(
                     child: GridView.builder(
                       padding: const EdgeInsets.all(4),
@@ -141,6 +143,7 @@ class _FullScreenGifState extends State<FullScreenGif> {
 
   @override
   Widget build(BuildContext context) {
+    // geting info about gif
     final String title = widget.fullData['title'] ?? 'No Title';
     final String originalUrl = widget.fullData['images']['original']['url'];
     final String username = widget.fullData['username'] ?? 'Unknown User';
@@ -168,7 +171,7 @@ class _FullScreenGifState extends State<FullScreenGif> {
                     fit: BoxFit.contain,
                   ),
                 ),
-
+                // grid
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Text("More like this:", 
