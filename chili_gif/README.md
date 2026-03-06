@@ -1,7 +1,9 @@
 # chili_gif
 
 A new Flutter project.
-
+flutter version 3.41.2
+dart version 3.11.0
+DevTools 2.54.1
 ## Getting Started
 
 This project is a starting point for a Flutter application.

@@ -6,17 +6,21 @@ void main() => runApp(const MyApp());
 
 Future<List<Map<String, dynamic>>> searchGifs(String query) async {
   const String apiKey = 'odgNV68FOM3rCSdrkL80RAqYVTexRdkp';
+  try {
+    final url = Uri.parse('https://api.giphy.com/v1/gifs/search?api_key=$apiKey&q=$query&limit=21');
+    
+    final response = await http.get(url);
 
-  final url = Uri.parse(
-      'https://api.giphy.com/v1/gifs/search?api_key=$apiKey&q=$query&limit=21');
-  
-  final response = await http.get(url);
-
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    return List<Map<String, dynamic>>.from(data['data']);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return List<Map<String, dynamic>>.from(data['data']);
+    }
+    return [];
   }
-  return [];
+  catch (e) {
+    print("Connection error: $e");
+    return [];
+  }
 }
 
 class MyApp extends StatelessWidget {
